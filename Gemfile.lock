@@ -82,6 +82,7 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     childprocess (4.1.0)
+    chronic (0.10.2)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     debug (1.4.0)
@@ -89,6 +90,8 @@ GEM
       reline (>= 0.2.7)
     digest (3.1.0)
     erubi (1.10.0)
+    faker (2.20.0)
+      i18n (>= 1.8.11, < 2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.10.0)
@@ -207,6 +210,8 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.5.4)
@@ -218,6 +223,7 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  faker (~> 2.20)
   importmap-rails
   jbuilder
   mysql2 (~> 0.5)
@@ -231,6 +237,7 @@ DEPENDENCIES
   tzinfo-data
   web-console
   webdrivers
+  whenever
 
 RUBY VERSION
    ruby 3.0.3p157
