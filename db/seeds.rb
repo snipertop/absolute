@@ -5,6 +5,6 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-1.times do
+2000.times do
     Account.create({ userid: Faker::IDNumber.unique.brazilian_id, name: Faker::Name.name, department: Faker::Company.name, position: Faker::Company.industry, mobile: Faker::Internet.unique.email, gender: Faker::Gender.binary_type })
 end

@@ -3,7 +3,7 @@ module ApiHelper
 
     def self.jdy_account_sync
         start_time = Time.new
-        puts "同步数据开始：#{start_time}"
+        Rails.logger.info("同步数据开始：#{start_time}")
         # 1.新增数据=本地数据ids-简道云ids
         jdy_account_create(get_accounts_create)
         # 2.更新数据=本地数据-简道云
@@ -14,7 +14,7 @@ module ApiHelper
         jdy_accounts_delete(jdy_accounts - get_local_accounts, jdy_accounts_mapping)
         end_time = Time.new
         time = end_time - start_time
-        puts "同步数据结束：#{end_time}，用时：#{time}"
+        Rails.logger.info("同步数据结束：#{end_time}，用时：#{time}")
     end
 
     private
@@ -99,7 +99,7 @@ module ApiHelper
 
         def self.get_accounts_create
             userids = get_local_userids - get_jdy_userids
-            puts "新增#{userids.size}条数据"
+            Rails.logger.info("新增#{userids.size}条数据")
             accounts = Array.new()
             userids.each do |userid|
                 # 待优化 except
@@ -118,7 +118,7 @@ module ApiHelper
         end
         # 更新简道云用户
         def self.jdy_accounts_update(accounts, mapping)
-            puts "更新#{accounts.size}条数据"
+            Rails.logger.info("更新#{accounts.size}条数据")
             url = "https://api.jiandaoyun.com/api/v3/app/624275afe9e5d20009925d52/entry/6242a168785a0d000730dbe3/data_update"
             accounts.each do |account|
                 data = { 
@@ -137,7 +137,7 @@ module ApiHelper
         end
         # 删除简道云用户
         def self.jdy_accounts_delete(accounts, mapping)
-            puts "删除#{accounts.size}条数据"
+            Rails.logger.info("删除#{accounts.size}条数据")
             url = "https://api.jiandaoyun.com/api/v1/app/624275afe9e5d20009925d52/entry/6242a168785a0d000730dbe3/data_delete"
             accounts.each do |account|
                 data = { 
