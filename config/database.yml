@@ -13,13 +13,13 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: root
-  host: 59.70.116.174
-  port: 3306
 
 development:
   <<: *default
+  host: 59.70.116.174
+  port: 3306
+  username: root
+  password: root
   database: absolute_development
 
 # Warning: The database defined as "test" will be erased and
@@ -52,5 +52,7 @@ test:
 production:
   <<: *default
   database: absolute_production
-  username: absolute
+  host: 59.70.112.142
+  port: 3306
+  username: root
   password: <%= ENV["ABSOLUTE_DATABASE_PASSWORD"] %>

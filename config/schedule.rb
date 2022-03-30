@@ -24,7 +24,7 @@ set :output, "/home/dinian/absolute/log/cron.log"
 
 set :environment, :development
 
-every 2.minutes do
+every 1.day, at: '4:30 am' do
     runner "ApiHelper.jdy_account_sync"
 end
 
