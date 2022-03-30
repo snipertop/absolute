@@ -33,4 +33,4 @@
 /app/assets/builds/*
 !/app/assets/builds/.keep
 # 数据库密码
-# .rbenv-vars
+.rbenv-vars
