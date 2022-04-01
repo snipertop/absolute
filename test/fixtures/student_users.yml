@@ -1,0 +1,61 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  userid: MyString
+  name: MyString
+  gender: MyString
+  birthday: MyString
+  nation: MyString
+  id_number: MyString
+  political: MyString
+  bank_card: MyString
+  mobile: MyString
+  email: MyString
+  education_system: MyString
+  student_category: MyString
+  cultivation_level: MyString
+  enter_school: MyString
+  leave_school: MyString
+  student_status: MyString
+  at_school: MyString
+  college: MyString
+  major: MyString
+  current_grade: MyString
+  class: MyString
+  instructor_name: MyString
+  instructor_id: MyString
+  instructor_mobile: MyString
+  campus: MyString
+  dormitory: MyString
+  room: MyString
+  bed: MyString
+
+two:
+  userid: MyString
+  name: MyString
+  gender: MyString
+  birthday: MyString
+  nation: MyString
+  id_number: MyString
+  political: MyString
+  bank_card: MyString
+  mobile: MyString
+  email: MyString
+  education_system: MyString
+  student_category: MyString
+  cultivation_level: MyString
+  enter_school: MyString
+  leave_school: MyString
+  student_status: MyString
+  at_school: MyString
+  college: MyString
+  major: MyString
+  current_grade: MyString
+  class: MyString
+  instructor_name: MyString
+  instructor_id: MyString
+  instructor_mobile: MyString
+  campus: MyString
+  dormitory: MyString
+  room: MyString
+  bed: MyString
