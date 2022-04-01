@@ -35,7 +35,7 @@
 # production
 set :bundle_command, "/home/ruby/.rbenv/shims/bundle exec"
 
-set :output, "/home/ruby/absolute/log/cron.log"
+set :output, "/home/ruby/rails7/absolute/log/cron.log"
 
 set :environment, :production
 
