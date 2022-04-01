@@ -40,7 +40,7 @@ set :output, "/home/ruby/rails7/absolute/log/cron.log"
 
 set :environment, :production
 
-every 1.day, at: '9:16 am' do
+every 1.day, at: '9:25 am' do
     runner "ApiHelper.jdy_account_sync"
     runner "StudentUserHelper.jdy_student_user_sync"
 end
