@@ -28,6 +28,7 @@ module StudentUserHelper
         end_time = Time.new
         time = end_time - start_time
         Rails.logger.info("-> end jdy_student_user_sync at #{end_time}, use_time #{time}")
+        puts "jdy_student_user_sync at #{end_time} -> #{end_time}, use_time #{time}"
     end
 
     private

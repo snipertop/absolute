@@ -23,10 +23,11 @@
 
 # set :output, "/home/dinian/absolute/log/cron.log"
 
-# set :environment, :development
+# set :environment, :production
 
-# every 1.day, at: '2:30 pm' do
+# every 1.day, at: '5:10 pm' do
 #     runner "ApiHelper.jdy_account_sync"
+#     runner "StudentUserHelper.jdy_student_user_sync"
 # end
 
 # every 2.minutes do
@@ -39,13 +40,14 @@ set :output, "/home/ruby/rails7/absolute/log/cron.log"
 
 set :environment, :production
 
-# every 1.day, at: '2:30 pm' do
+every 1.day, at: '9:16 am' do
+    runner "ApiHelper.jdy_account_sync"
+    runner "StudentUserHelper.jdy_student_user_sync"
+end
+
+# every 2.minutes do
 #     runner "ApiHelper.jdy_account_sync"
 # end
-
-every 2.minutes do
-    runner "ApiHelper.jdy_account_sync"
-end
 
 # whenever -i
 # whenever -w
