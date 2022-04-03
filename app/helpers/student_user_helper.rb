@@ -154,7 +154,9 @@ module StudentUserHelper
                         "_widget_1648657570517": { "value": da[:classes] }, "_widget_1648657570498": { "value": da[:instructor_name] },
                         "_widget_1648657570479": { "value": da[:instructor_id] }, "_widget_1648657570460": { "value": da[:instructor_mobile] },
                         "_widget_1648657570441": { "value": da[:campus] }, "_widget_1648657570422": { "value": da[:dormitory] },
-                        "_widget_1648657570384": { "value": da[:room] }, "_widget_1648657570403": { "value": da[:bed] } 
+                        "_widget_1648657570384": { "value": da[:room] }, "_widget_1648657570403": { "value": da[:bed] }, 
+                        #学生成员和辅导员成员
+                        "_widget_1648972888250": { "value": da[:userid] }, "_widget_1648972888267": { "value": da[:instructor_id] }
                     }   
                     datatmp << data
                 end
@@ -195,23 +197,7 @@ module StudentUserHelper
             # puts delete_data.first
             delete_data.each do |da|
                 data = { 
-                    "data_id": mapping[da[:userid].to_sym],
-                    "data": {
-                        "_widget_1648657570897": { "value": da[:userid] }, "_widget_1648657570878": { "value": da[:name] },
-                        "_widget_1648657570859": { "value": da[:gender] }, "_widget_1648657570840": { "value": da[:birthday] },
-                        "_widget_1648657570821": { "value": da[:nation] }, "_widget_1648657570802": { "value": da[:id_number] },
-                        "_widget_1648657570783": { "value": da[:political] }, "_widget_1648657570764": { "value": da[:bank_card] },
-                        "_widget_1648657570745": { "value": da[:mobile] }, "_widget_1648657570726": { "value": da[:email] },
-                        "_widget_1648657570707": { "value": da[:education_system] }, "_widget_1648657570688": { "value": da[:student_category] },
-                        "_widget_1648657570669": { "value": da[:cultivation_level] }, "_widget_1648657570650": { "value": da[:enter_school] },
-                        "_widget_1648657570631": { "value": da[:leave_school] }, "_widget_1648657570612": { "value": da[:student_status] },
-                        "_widget_1648657570593": { "value": da[:at_school] }, "_widget_1648657570574": { "value": da[:college] },
-                        "_widget_1648657570555": { "value": da[:major] }, "_widget_1648657570536": { "value": da[:current_grade] },
-                        "_widget_1648657570517": { "value": da[:classes] }, "_widget_1648657570498": { "value": da[:instructor_name] },
-                        "_widget_1648657570479": { "value": da[:instructor_id] }, "_widget_1648657570460": { "value": da[:instructor_mobile] },
-                        "_widget_1648657570441": { "value": da[:campus] }, "_widget_1648657570422": { "value": da[:dormitory] },
-                        "_widget_1648657570384": { "value": da[:room] }, "_widget_1648657570403": { "value": da[:bed] }
-                    }
+                    "data_id": mapping[da[:userid].to_sym]
                 }
                 jdy_post(data_delete_url, data)
             end
