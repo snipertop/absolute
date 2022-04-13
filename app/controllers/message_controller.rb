@@ -9,7 +9,7 @@ class MessageController < ApplicationController
         title = payload["entry_name"]
         content = payload["content"]
         url = payload["url"]
-        return if to.nil? or title.nil? or content.nil? or url.nil?
+        return if to.nil? and title.nil? and content.nil? and url.nil?
         send_message(to, title, content, url)
     end
 end
