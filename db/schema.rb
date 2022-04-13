@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_30_163058) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_06_011907) do
   create_table "accounts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "userid"
     t.string "name"
@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_30_163058) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "student_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "student_users", id: { type: :string, limit: 20 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "userid"
     t.string "name"
     t.string "gender"
@@ -52,6 +52,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_30_163058) do
     t.string "room"
     t.string "bed"
     t.string "flag"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teacher_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "userid"
+    t.string "name"
+    t.string "department"
+    t.string "position"
+    t.string "mobile"
+    t.string "gender"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

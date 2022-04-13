@@ -76,3 +76,5 @@ end
 
 gem 'whenever',  :require=>false
 gem "faker", "~> 2.20"
+
+gem "jwt", "~> 2.3"
