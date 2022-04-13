@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  get 'student_user/index'
+  get 'student_user/index'  #学生基本信息同步
   get 'api/index'
   get 'api/sso'
-  post 'message/msg'
+  post 'message/msg'  #简道云消息到一网通办
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
