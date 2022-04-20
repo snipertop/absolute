@@ -1,7 +1,7 @@
 module StudentUserHelper
     require 'net/https'
 
-    # 教师通讯录同步
+    # 学生基本信息同步
     def self.jdy_student_user_sync
         # 简道云api
         data_url = "https://api.jiandaoyun.com/api/v2/app/624275afe9e5d20009925d52/entry/624484a20d38230007fc6054/data"
@@ -28,7 +28,7 @@ module StudentUserHelper
         end_time = Time.new
         time = end_time - start_time
         Rails.logger.info("-> end jdy_student_user_sync at #{end_time}, use_time #{time}")
-        puts "jdy_student_user_sync at #{end_time} -> #{end_time}, use_time #{time}"
+        puts "jdy_student_user_sync at #{start_time} -> #{end_time}, use_time #{time}"
     end
 
     private

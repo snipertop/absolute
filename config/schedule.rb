@@ -18,12 +18,12 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-# development
+# development start
 # set :bundle_command, "/home/dinian/.rbenv/shims/bundle exec"
 
 # set :output, "/home/dinian/absolute/log/cron.log"
 
-# set :environment, :production
+# set :environment, :development
 
 # every 1.day, at: '5:10 pm' do
 #     runner "ApiHelper.jdy_account_sync"
@@ -33,17 +33,20 @@
 # every 2.minutes do
 #     runner "ApiHelper.jdy_account_sync"
 # end
-# production
+# development end
+# production start
 set :bundle_command, "/home/ruby/.rbenv/shims/bundle exec"
 
 set :output, "/home/ruby/rails7/absolute/log/cron.log"
 
 set :environment, :production
 
-every 1.day, at: '9:25 am' do
+every 1.day, at: '7:00 am' do
     runner "ApiHelper.jdy_account_sync"
     runner "StudentUserHelper.jdy_student_user_sync"
+    runner "WexinUserHelper.wexin_user_sync"
 end
+# production end
 
 # every 2.minutes do
 #     runner "ApiHelper.jdy_account_sync"
