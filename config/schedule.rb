@@ -51,7 +51,7 @@ every 1.day, at: '7:05 am' do
     runner "StudentUserHelper.jdy_student_user_sync"
 end
 # 企业微信-主数据 学生通讯录
-every 1.day, at: '7:30 am' do
+every 1.day, at: '5:30 am' do
     runner "WexinUserHelper.wexin_user_sync"
 end
 # production end
@@ -63,3 +63,4 @@ end
 # whenever -i
 # whenever -w
 # crontab -l
+# RAILS_ENV=production rails s -p 3002 -d
