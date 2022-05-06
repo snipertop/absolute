@@ -1,0 +1,16 @@
+<%= form_with url: wexin_user_search_path, method: :psot do |form| %>
+    <%= form.label :userid, "学号:" %>
+    <%= form.text_field :userid %>
+    <br>
+    <%= form.label :name, "姓名:" %>
+    <%= form.text_field :name %>
+    <br>
+    <%= form.label :mobile, "现用手机号:" %>
+    <%= form.text_field :mobile %>
+    <br>
+    <%= form.label :idnumber, "身份证后六位:" %>
+    <%= form.text_field :idnumber %>
+    <br>
+    <%= form.submit "Search" %>
+<% end %>
+<div id="search_results"></div>

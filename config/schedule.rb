@@ -35,7 +35,7 @@
 # end
 # development end
 
-# production start
+# production***start
 set :bundle_command, "/home/ruby/.rbenv/shims/bundle exec"
 
 set :output, "/home/ruby/rails7/absolute/log/cron.log"
@@ -43,18 +43,18 @@ set :output, "/home/ruby/rails7/absolute/log/cron.log"
 set :environment, :production
 
 # 简道云-主数据 教师基本信息
-every 1.day, at: '11:00 pm' do
+every 1.day, at: '2:00 pm' do
     runner "ApiHelper.jdy_account_sync"
 end
 # 简道云-主数据 学生基本信息
-every 1.day, at: '11:05 pm' do
+every 1.day, at: '2:05 pm' do
     runner "StudentUserHelper.jdy_student_user_sync"
 end
 # 企业微信-主数据 学生通讯录
-every 1.day, at: '11:30 pm' do
+every 1.day, at: '2:30 pm' do
     runner "WexinUserHelper.wexin_user_sync"
 end
-# production end
+# production***end
 
 # every 2.minutes do
 #     runner "ApiHelper.jdy_account_sync"

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'api/sso'
   post 'message/msg'  #简道云消息到一网通办
   get 'wexin_user/index'
+  get 'wexin_user/show'
+  post 'wexin_user/search'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
