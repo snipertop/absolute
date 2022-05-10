@@ -12,6 +12,7 @@ class ModifyMobilesController < ApplicationController
     userid_url = URI('https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=' + access_token + '&code=' + params[:code])
     response = Net::HTTP.get_response(userid_url)
     cookies[:userid] = JSON.parse(response.body)["UserId"]
+    Rails.logger.info(" #create cookies #{cookies[:userid]}")
     redirect_to(modify_mobiles_path)    
   end
 
@@ -22,6 +23,7 @@ class ModifyMobilesController < ApplicationController
   # GET /modify_mobiles or /modify_mobiles.json
   def index
     userlist = ["1703018","1703017"]
+    Rails.logger.info(" user cookies #{cookies[:userid]}")
     if userlist.include?(cookies[:userid])
       @modify_mobiles = ModifyMobile.where({status: "0"}) # 0:未审核，1:已审核
     else
