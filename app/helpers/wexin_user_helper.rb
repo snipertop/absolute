@@ -83,7 +83,9 @@ module WexinUserHelper
 
     private
         def self.wexin_access_token
-            corpsecret = "1Gawl5gRSuwnYKxGG-040qQNlwD0jkaFZICzyWC0dwQ"
+            # corpsecret = "1Gawl5gRSuwnYKxGG-040qQNlwD0jkaFZICzyWC0dwQ" #我的身份码
+            # corpsecret = "4Ip0AbKz5wQ8nkpPth9v6Pt8lYEpng5ZpXYPlToxaVY" #二维码test
+            corpsecret = "h0G4NOfKfiykeF4V0ED32keGyRo4-qTLoELg7N66H4Q" #客服系统
             access_token_url = URI("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wwf8d912afaf40628a&corpsecret=" + corpsecret)
             response = Net::HTTP.get_response(access_token_url)
             JSON.parse(response.body)["access_token"]
@@ -100,7 +102,7 @@ module WexinUserHelper
             # 设置请求头
             header = {'content-type':'application/json'}
             response = http.post(url, data, header)
-            JSON.parse(response.body)["errmsg"]
+            JSON.parse(response.body)["errcode"]
         end
 
         # 企业微信GET请求
@@ -108,6 +110,30 @@ module WexinUserHelper
             url = URI(url)
             response = Net::HTTP.get_response(url)
             JSON.parse(response.body)
+        end
+
+        # 认证POST请求
+        def self.rz_post(user)
+            url = URI('http://10.109.10.12:9000/internal/user/updateAttributes')
+            http = Net::HTTP.new(url.host, url.port)
+            #设置请求头
+            accessToken = "6da3db56cd327dada299351ea69e4004"
+            header = {'content-type':'application/x-www-form-urlencoded','appid':'f0fe8dbada0b0404','accessToken':accessToken}
+            timestamp = Time.new.to_i.to_s
+            str = "zbu"
+            uid = user[:userid]
+            mobile = "{\"telephoneNumber\":\"#{user[:mobile]}\"}"
+            sign = Array[accessToken,timestamp, str, uid + mobile].sort.join
+            sign = Digest::SHA1.hexdigest(sign)
+            data = URI.encode_www_form({
+                "uid": uid,
+                "timeStamp": timestamp,
+                "randomStr": str,
+                "sign": sign,
+                "data": mobile
+            })
+            response = http.post(url, data, header)
+            JSON.parse(response.body)["status"]
         end
 
         # 查询本地学生数据
@@ -125,7 +151,7 @@ module WexinUserHelper
                     "userid": student[:userid],
                     "name": student[:name],
                     "department": [departmentid],
-                    "position": "",
+                    "position": "学生",
                     "mobile": mobile,
                     "gender": gender
                 }
@@ -197,6 +223,7 @@ module WexinUserHelper
             Rails.logger.info("update wx #{userlist.size}")
             userlist.each do |user|
                 cur_time = Time.new
+                puts user
                 wexin_post(user_update_url, user)
                 cur_time = Time.new - cur_time
                 sleep(300) if cur_time > 5
@@ -206,27 +233,8 @@ module WexinUserHelper
          # 更新认证平台手机号
         def self.rz_mobile_update(userlist)
             Rails.logger.info("update rz #{userlist.size}")
-            #application/x-www-form-urlencoded
-            url = URI('http://10.109.10.12:9000/internal/user/updateAttributes')
-            http = Net::HTTP.new(url.host, url.port)
-            #设置请求头
-            accessToken = "6da3db56cd327dada299351ea69e4004"
-            header = {'content-type':'application/x-www-form-urlencoded','appid':'f0fe8dbada0b0404','accessToken':accessToken}
-            timestamp = Time.new.to_i.to_s
-            str = "zbu"
             userlist.each do |user|
-                uid = user[:userid]
-                data = "{\"telephoneNumber\":\"#{user[:mobile]}\"}"
-                sign = Array[accessToken,timestamp, str, uid+data].sort.join
-                sign = Digest::SHA1.hexdigest(sign)
-                data = URI.encode_www_form({
-                    "uid": uid,
-                    "timeStamp": timestamp,
-                    "randomStr": str,
-                    "sign": sign,
-                    "data": data
-                })
-                http.post(url, data, header)
+                rz_post(user)
             end
         end
 

@@ -1,0 +1,27 @@
+<h1 class="font-bold text-4xl">登录问题分析解决</h1>
+<%= form_with(url: search_modify_mobiles_path, method: :psot, class: "contents") do |form| %>
+    <div class="my-5">
+        <%= form.label "学号" %>
+        <%= form.text_field :userid, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+        <%= form.label "姓名" %>
+        <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+        <%= form.label "手机号（现用）" %>
+        <%= form.text_field :mobile, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+        <%= form.label "身份证（后六位）" %>
+        <%= form.text_field :idnumber, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="inline">
+        <%= form.submit value="开始分析",  class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+<% end %>
+  

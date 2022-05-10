@@ -1,0 +1,33 @@
+<div class="mx-auto md:w-2/3 w-full">
+
+  <div id="flash">
+    <%= render partial: "modify_mobiles/flash", locals: { } %>
+  </div>
+
+  <%= form_with(model: @modify_mobile, class: "contents") do |form| %>
+    <div class="my-5">
+      <%= form.label "学号" %>
+      <%= form.text_field :userid, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label "姓名" %>
+      <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label "手机号（现用）" %>
+      <%= form.text_field :mobile, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label "身份证（后六位）" %>
+      <%= form.text_field :idnumber, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="inline flex justify-around my-5">
+      <%= form.submit value="提交",  class: "rounded-lg py-2 px-10 w-full bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+  <% end %>
+
+</div>

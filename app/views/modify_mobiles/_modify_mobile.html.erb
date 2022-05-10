@@ -1,0 +1,68 @@
+<div id="<%= dom_id modify_mobile %>">
+  <div class="px-2 mt-2">
+    <h3 class="font-medium text-gray-900">用户提交</h3>
+  </div>
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg my-2">
+    <dl>
+      <div class="bg-gray-50 px-4 py-2 grid grid-cols-2">
+        <dt class="font-medium text-gray-500">学号</dt>
+        <dd class="text-gray-900"><%= modify_mobile.userid %></dd>
+      </div>
+      <div class="bg-white px-4 py-2 grid grid-cols-2">
+        <dt class="font-medium text-gray-500">姓名</dt>
+        <dd class="text-gray-900"><%= modify_mobile.name %></dd>
+      </div>
+      <div class="bg-gray-50 px-4 py-2 grid grid-cols-2">
+        <dt class="font-medium text-gray-500">手机号</dt>
+        <dd class="text-gray-900"><%= modify_mobile.mobile %></dd>
+      </div>
+    </dl>
+  </div>
+  <div class="px-2">
+    <h3 class="font-medium text-gray-900">企业微信</h3>
+  </div>
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg my-2">
+    <dl>
+      <div class="bg-gray-50 px-4 py-2 grid grid-cols-2">
+        <dt class="font-medium text-gray-500">手机号</dt>
+        <% if modify_mobile.wx_mobile == modify_mobile.mobile %>
+          <dd class="text-gray-900"><%= modify_mobile.wx_mobile %></dd>
+        <% else %>
+          <dd class="text-red-600 font-bold"><%= modify_mobile.wx_mobile %></dd>
+        <% end %>
+      </div>
+      <div class="bg-white px-4 py-2 grid grid-cols-2">
+        <dt class="font-medium text-gray-500">激活状态</dt>
+        <dd class="text-gray-900"><%= modify_mobile.wx_status %></dd>
+      </div>
+    </dl>
+  </div>
+  <div class="px-2">
+    <h3 class="font-medium text-gray-900">一网通办</h3>
+  </div>
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg my-2">
+    <dl>
+      <div class="bg-gray-50 px-4 py-2 grid grid-cols-2">
+        <dt class="font-medium text-gray-500">手机号</dt>
+        <% if modify_mobile.rz_mobile == modify_mobile.mobile %>
+          <dd class="text-gray-900"><%= modify_mobile.rz_mobile %></dd>
+        <% else %>
+          <dd class="text-red-600 font-bold"><%= modify_mobile.rz_mobile %></dd>
+        <% end %>
+      </div>
+      <div class="bg-whiet px-4 py-2 grid grid-cols-2">
+        <dt class="font-medium text-gray-500">激活状态</dt>
+        <dd class="text-gray-900"><%= modify_mobile.rz_status %></dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="flex justify-around my-5">
+    <div>
+      <%= button_to '删除信息', modify_mobile_path(modify_mobile), method: :delete, class: "rounded-lg py-2 px-10 bg-red-500 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+    <div>
+      <%= button_to '确认修改', "/modify_mobiles/#{modify_mobile[:id]}", method: :put, class: "rounded-lg py-2 px-10 bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+  </div>
+</div>

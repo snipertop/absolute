@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :modify_mobiles do
+    collection do
+      get :complete, :callback, :auth
+    end
+  end
   get 'student_user/index'  #学生基本信息同步
   get 'api/index'
   get 'api/sso'
