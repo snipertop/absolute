@@ -4,7 +4,7 @@ class ModifyMobilesController < ApplicationController
   def auth
     # url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwf8d912afaf40628a&redirect_uri=http://zbu.free.svipss.top/modify_mobiles/callback&response_type=code&scope=snsapi_base#wechat_redirect"
     url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwf8d912afaf40628a&redirect_uri=http://xxk.zbu.edu.cn:3032/modify_mobiles/callback&response_type=code&scope=snsapi_base#wechat_redirect"
-    if cookies[:userid].empty?
+    if cookies[:userid].nil?
       Rails.logger.info("no use cookie #{ cookies[:userid ]}")
       redirect_to(url, allow_other_host: true)
     else
