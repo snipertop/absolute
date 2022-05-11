@@ -27,7 +27,7 @@ class ModifyMobilesController < ApplicationController
     if userlist.include?(cookies[:userid])
       @modify_mobiles = ModifyMobile.where({status: "1"}).order("created_at desc") # 0:未审核，1:已审核
     else
-      redirect_to new_modify_mobiles_path
+      redirect_to(new_modify_mobiles_url)
     end
   end
 
