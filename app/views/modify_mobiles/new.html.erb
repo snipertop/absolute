@@ -1,8 +1,10 @@
 <div class="mx-auto md:w-2/3 w-full">
 
-  <div id="flash">
-    <%= render partial: "modify_mobiles/flash", locals: { } %>
-  </div>
+  <% if notice.to_s.include? "成功"  %>
+    <p class="text-xl py-2 text-green-500 font-medium rounded-lg inline-block"><%= notice %></p>
+  <% elsif notice.to_s.include? "失败" %>
+    <p class="text-xl py-2 text-red-500 font-medium rounded-lg inline-block"><%= notice %></p>
+  <% end %>
 
   <%= form_with(model: @modify_mobile, class: "contents") do |form| %>
     <div class="my-5">

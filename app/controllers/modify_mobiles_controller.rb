@@ -64,10 +64,7 @@ class ModifyMobilesController < ApplicationController
     pattern = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/
     if p_userid.empty? or p_name.empty? or p_mobile.empty? or p_idnumber.empty? or (p_mobile =~ pattern).nil?
       respond_to do |format|
-        format.turbo_stream do 
-          render turbo_stream:
-            turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "信息提交失败！" })
-        end
+        format.html { redirect_to new_modify_mobile_path, notice: "信息提交失败！" }
       end
       return
     end
@@ -75,10 +72,7 @@ class ModifyMobilesController < ApplicationController
     r_user = WexinUserHelper.rz_user(p_userid)
     if r_user["data"] == "uid无效"
       respond_to do |format|
-        format.turbo_stream do 
-          render turbo_stream:
-            turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "信息提交失败！" })
-        end
+        format.html { redirect_to new_modify_mobile_path, notice: "信息提交失败！" }
       end
       return
     end
@@ -95,10 +89,7 @@ class ModifyMobilesController < ApplicationController
     # 本地数据
     if StudentUser.where({userid: p_userid}).empty?
       respond_to do |format|
-        format.turbo_stream do 
-          render turbo_stream:
-            turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "仅支持学生提交！" })
-        end
+        format.html { redirect_to new_modify_mobile_path, notice: "信息提交失败！仅支持学生提交" }
       end
       return
     end
@@ -133,19 +124,12 @@ class ModifyMobilesController < ApplicationController
       @modify_mobile = ModifyMobile.new(modify_mobile)
       respond_to do |format|
         if @modify_mobile.save
-          format.turbo_stream do 
-            render turbo_stream: [
-              turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { notice: "信息提交成功！" })
-          ]
-          end
+          format.html { redirect_to new_modify_mobile_path, notice: "信息提交成功！" }
         end
       end
     else
       respond_to do |format|
-        format.turbo_stream do 
-          render turbo_stream:
-            turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "信息提交失败！" })
-        end
+        format.html { redirect_to new_modify_mobile_path, notice: "信息提交失败！" }
       end
     end
   end
