@@ -2,8 +2,8 @@ class ModifyMobilesController < ApplicationController
   before_action :set_modify_mobile, only: %i[ show edit update destroy ]
 
   def auth
-    url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwf8d912afaf40628a&redirect_uri=http://zbu.free.svipss.top/modify_mobiles/callback&response_type=code&scope=snsapi_base#wechat_redirect"
-    # url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwf8d912afaf40628a&redirect_uri=http://xxk.zbu.edu.cn:3032/modify_mobiles/callback&response_type=code&scope=snsapi_base#wechat_redirect"
+    # url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwf8d912afaf40628a&redirect_uri=http://zbu.free.svipss.top/modify_mobiles/callback&response_type=code&scope=snsapi_base#wechat_redirect"
+    url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwf8d912afaf40628a&redirect_uri=http://xxk.zbu.edu.cn:3032/modify_mobiles/callback&response_type=code&scope=snsapi_base#wechat_redirect"
     if cookies[:userid].nil?
       # Rails.logger.info("no use cookie #{ cookies[:userid ]}")
       redirect_to(url, allow_other_host: true)
@@ -22,7 +22,7 @@ class ModifyMobilesController < ApplicationController
   end
 
   def complete
-    cookies[:userid] = "1703018"
+    # cookies[:userid] = "1703018"
     userlist = ["1703018","1703017"]
     if userlist.include?(cookies[:userid])
       @modify_mobiles = ModifyMobile.where({status: "1"}).order("created_at desc") # 0:未审核，1:已审核
@@ -33,7 +33,7 @@ class ModifyMobilesController < ApplicationController
 
   # GET /modify_mobiles or /modify_mobiles.json
   def index
-    cookies[:userid] = "1703018"
+    # cookies[:userid] = "1703018"
     userlist = ["1703018","1703017"]
     if userlist.include?(cookies[:userid])
       @modify_mobiles = ModifyMobile.where({status: "0"}).order("created_at desc") # 0:未审核，1:已审核
