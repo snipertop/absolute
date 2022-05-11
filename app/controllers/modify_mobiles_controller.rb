@@ -9,7 +9,7 @@ class ModifyMobilesController < ApplicationController
       redirect_to(url, allow_other_host: true)
     else
       # Rails.logger.info("use cookie #{ cookies[:userid ]}")
-      redirect_to(modify_mobiles_url)
+      redirect_to(modify_mobiles_path)
     end
   end
 
@@ -18,7 +18,7 @@ class ModifyMobilesController < ApplicationController
     userid_url = URI('https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=' + access_token + '&code=' + params[:code])
     response = Net::HTTP.get_response(userid_url)
     cookies[:userid] = JSON.parse(response.body)["UserId"]
-    redirect_to(modify_mobiles_url)    
+    redirect_to(modify_mobiles_path)    
   end
 
   def complete
@@ -27,7 +27,7 @@ class ModifyMobilesController < ApplicationController
     if userlist.include?(cookies[:userid])
       @modify_mobiles = ModifyMobile.where({status: "1"}).order("created_at desc") # 0:未审核，1:已审核
     else
-      render "modify_mobiles/new"
+      redirect_to new_modify_mobiles_path
     end
   end
 
