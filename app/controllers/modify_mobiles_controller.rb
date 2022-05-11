@@ -22,14 +22,14 @@ class ModifyMobilesController < ApplicationController
   end
 
   def complete
-    @modify_mobiles = ModifyMobile.where({status: "1"}) # 0:未审核，1:已审核
+    @modify_mobiles = ModifyMobile.where({status: "1"}).order("created_at desc") # 0:未审核，1:已审核
   end
 
   # GET /modify_mobiles or /modify_mobiles.json
   def index
     userlist = ["1703018","1703017"]
     if userlist.include?(cookies[:userid])
-      @modify_mobiles = ModifyMobile.where({status: "0"}) # 0:未审核，1:已审核
+      @modify_mobiles = ModifyMobile.where({status: "0"}).order("created_at desc") # 0:未审核，1:已审核
     else
       render "modify_mobiles/new"
     end
@@ -242,8 +242,6 @@ class ModifyMobilesController < ApplicationController
           turbo_stream.remove(@modify_mobile)
         ]
       end
-      format.html { redirect_to modify_mobiles_url, flash: "Modify mobile was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
