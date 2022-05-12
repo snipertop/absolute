@@ -80,8 +80,8 @@ class ModifyMobilesController < ApplicationController
     r_userid = r_user["data"]["uid"].first
     r_mobile = r_user["data"]["telephoneNumber"].first[-11,11]
     r_idnumber = r_user["data"]["eduPersonCardID"].first[-6,6]
-    r_status = r_user["data"]["status"].first
-    if r_status == "1" or r_status == "0"
+    r_status = r_user["data"]["activeStatus"].first
+    if r_status == "1"
       r_status = "已激活"
     else
       r_status = "未激活"
