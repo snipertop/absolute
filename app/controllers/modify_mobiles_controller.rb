@@ -17,6 +17,7 @@ class ModifyMobilesController < ApplicationController
     access_token = WexinUserHelper.wexin_access_token
     userid_url = URI('https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=' + access_token + '&code=' + params[:code])
     response = Net::HTTP.get_response(userid_url)
+    Rails.logger.info("use cookie #{ response.body }")
     cookies[:userid] = JSON.parse(response.body)["UserId"]
     redirect_to(modify_mobiles_path)    
   end
