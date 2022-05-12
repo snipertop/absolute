@@ -5,19 +5,21 @@ class ModifyMobilesController < ApplicationController
     # url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwf8d912afaf40628a&redirect_uri=http://zbu.free.svipss.top/modify_mobiles/callback&response_type=code&scope=snsapi_base#wechat_redirect"
     url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwf8d912afaf40628a&redirect_uri=http://xxk.zbu.edu.cn:3032/modify_mobiles/callback&response_type=code&scope=snsapi_base#wechat_redirect"
     if cookies[:userid].nil?
-      Rails.logger.info("no use cookie #{ cookies[:userid ]}")
+      # Rails.logger.info("no use cookie #{ cookies[:userid ]}")
       redirect_to(url, allow_other_host: true)
     else
-      Rails.logger.info("use cookie #{ cookies[:userid ]}")
+      # Rails.logger.info("use cookie #{ cookies[:userid ]}")
       redirect_to(modify_mobiles_path)
     end
   end
 
   def callback
-    access_token = WexinUserHelper.wexin_access_token
+    corpsecret = "h0G4NOfKfiykeF4V0ED32ocjZ1gnSXGnEElvyTApuj8" #修改手机号
+    access_token_url = URI("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wwf8d912afaf40628a&corpsecret=" + corpsecret)
+    response = Net::HTTP.get_response(access_token_url)
+    access_token = JSON.parse(response.body)["access_token"]
     userid_url = URI('https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=' + access_token + '&code=' + params[:code])
     response = Net::HTTP.get_response(userid_url)
-    Rails.logger.info("use cookie #{ response.body }")
     cookies[:userid] = JSON.parse(response.body)["UserId"]
     redirect_to(modify_mobiles_path)    
   end
