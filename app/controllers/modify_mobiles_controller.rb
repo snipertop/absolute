@@ -33,7 +33,7 @@ class ModifyMobilesController < ApplicationController
 
   # GET /modify_mobiles or /modify_mobiles.json
   def index
-    # cookies[:userid] = "1703018"
+    cookies[:userid] = "1703018"
     userlist = ["1703018","1703017","200044300131"]
     if userlist.include?(cookies[:userid])
       @modify_mobiles = ModifyMobile.where({status: "0"}).order("created_at desc") # 0:未审核，1:已审核
@@ -156,7 +156,7 @@ class ModifyMobilesController < ApplicationController
     }
     # 更新微信
     access_token = WexinUserHelper.wexin_access_token
-    if @modify_mobile["wx_status"] == "未激活"
+    if @modify_mobile["wx_status"] == "未激活" and @modify_mobile["wx_mobile"] != @modify_mobile["mobile"]
       wexin_user_update_url = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token=" + access_token
       wx_code = WexinUserHelper.wexin_post(wexin_user_update_url, update_data)
       if wx_code != 0
@@ -165,7 +165,7 @@ class ModifyMobilesController < ApplicationController
         end
         return
       end
-    elsif @modify_mobile["wx_status"] == "已激活"
+    elsif @modify_mobile["wx_status"] == "已激活" and @modify_mobile["wx_mobile"] != @modify_mobile["mobile"]
       # 构建用户信息
       w_user = WexinUserHelper.wexin_user(@modify_mobile["userid"])
       data = {
@@ -182,7 +182,6 @@ class ModifyMobilesController < ApplicationController
       # 新增用户
       wexin_user_create_url = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token=" + access_token
       wx_code = WexinUserHelper.wexin_post(wexin_user_create_url, data)
-      puts wx_code
       if wx_code != 0
         respond_to do |format|
           format.turbo_stream { render turbo_stream: turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "企业微信手机号修改失败！" }) } 
@@ -191,13 +190,16 @@ class ModifyMobilesController < ApplicationController
       end
     end
     # 更新认证
-    rz_code = WexinUserHelper.rz_post(update_data)
-    if rz_code != "1"
-      respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "一网通办手机号修改失败！" }) } 
+    if @modify_mobile["rz_mobile"] != @modify_mobile["mobile"]
+      rz_code = WexinUserHelper.rz_post(update_data)
+      if rz_code != "1"
+        respond_to do |format|
+          format.turbo_stream { render turbo_stream: turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "一网通办手机号修改失败！" }) } 
+        end
+        return
       end
-      return
     end
+    # 更新本地
     modify_mobile = {
       "id": @modify_mobile["id"],
       "status": "1",

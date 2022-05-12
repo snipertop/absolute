@@ -83,9 +83,7 @@ module WexinUserHelper
 
     private
         def self.wexin_access_token
-            # corpsecret = "1Gawl5gRSuwnYKxGG-040qQNlwD0jkaFZICzyWC0dwQ" #我的身份码
-            # corpsecret = "4Ip0AbKz5wQ8nkpPth9v6Pt8lYEpng5ZpXYPlToxaVY" #二维码test
-            corpsecret = "h0G4NOfKfiykeF4V0ED32keGyRo4-qTLoELg7N66H4Q" #客服系统
+            corpsecret = "1Gawl5gRSuwnYKxGG-040qQNlwD0jkaFZICzyWC0dwQ" #通讯录同步
             access_token_url = URI("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wwf8d912afaf40628a&corpsecret=" + corpsecret)
             response = Net::HTTP.get_response(access_token_url)
             JSON.parse(response.body)["access_token"]
@@ -102,6 +100,7 @@ module WexinUserHelper
             # 设置请求头
             header = {'content-type':'application/json'}
             response = http.post(url, data, header)
+            response.body
             JSON.parse(response.body)["errcode"]
         end
 
@@ -223,7 +222,6 @@ module WexinUserHelper
             Rails.logger.info("update wx #{userlist.size}")
             userlist.each do |user|
                 cur_time = Time.new
-                puts user
                 wexin_post(user_update_url, user)
                 cur_time = Time.new - cur_time
                 sleep(300) if cur_time > 5
