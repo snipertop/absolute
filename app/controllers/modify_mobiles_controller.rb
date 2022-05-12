@@ -149,7 +149,7 @@ class ModifyMobilesController < ApplicationController
   end
 
   # PATCH/PUT /modify_mobiles/1 or /modify_mobiles/1.json
-  def update  
+  def update
     update_data = {
       userid: @modify_mobile["userid"],
       mobile: @modify_mobile["mobile"],
@@ -165,28 +165,31 @@ class ModifyMobilesController < ApplicationController
         end
         return
       end
-    elsif @modify_mobile["wx_status"] == "已激活" and @modify_mobile["wx_mobile"] != @modify_mobile["mobile"]
+    end
+    if @modify_mobile["wx_status"] == "未激活" and @modify_mobile["wx_mobile"] != @modify_mobile["mobile"]
       # 构建用户信息
       w_user = WexinUserHelper.wexin_user(@modify_mobile["userid"])
-      data = {
-        userid: w_user["userid"],
-        name: w_user["name"],
-        department: w_user["department"],
-        position: w_user["position"],
-        mobile: @modify_mobile["mobile"],
-        gender: w_user["gender"]
-      }
-      # 删除用户
-      wexin_user_delete_url = "https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token=" + access_token + "&userid="
-      WexinUserHelper.wexin_get(wexin_user_delete_url + @modify_mobile["userid"])
-      # 新增用户
-      wexin_user_create_url = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token=" + access_token
-      wx_code = WexinUserHelper.wexin_post(wexin_user_create_url, data)
-      if wx_code != 0
-        respond_to do |format|
-          format.turbo_stream { render turbo_stream: turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "企业微信手机号修改失败！" }) } 
+      if @modify_mobile["mobile"] != w_user["mobile"]
+        data = {
+          userid: w_user["userid"],
+          name: w_user["name"],
+          department: w_user["department"],
+          position: w_user["position"],
+          mobile: @modify_mobile["mobile"],
+          gender: w_user["gender"]
+        }
+        # 删除用户
+        wexin_user_delete_url = "https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token=" + access_token + "&userid="
+        WexinUserHelper.wexin_get(wexin_user_delete_url + @modify_mobile["userid"])
+        # 新增用户
+        wexin_user_create_url = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token=" + access_token
+        wx_code = WexinUserHelper.wexin_post(wexin_user_create_url, data)
+        if wx_code != 0
+          respond_to do |format|
+            format.turbo_stream { render turbo_stream: turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "企业微信手机号修改失败！" }) } 
+          end
+          return
         end
-        return
       end
     end
     # 更新认证
