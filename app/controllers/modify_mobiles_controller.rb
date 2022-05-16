@@ -137,20 +137,6 @@ class ModifyMobilesController < ApplicationController
     end
   end
 
-  # POST /modify_mobiles or /modify_mobiles.json
-  def create_bak
-      @modify_mobile = ModifyMobile.new(modify_mobile_params)
-      respond_to do |format|
-        if @modify_mobile.save
-          format.html { redirect_to modify_mobile_url(@modify_mobile), flash: "Modify mobile was successfully created." }
-          format.json { render :show, status: :created, location: @modify_mobile }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @modify_mobile.errors, status: :unprocessable_entity }
-        end
-      end
-  end
-
   # PATCH/PUT /modify_mobiles/1 or /modify_mobiles/1.json
   def update
     update_data = {
@@ -164,7 +150,7 @@ class ModifyMobilesController < ApplicationController
       wx_code = WexinUserHelper.wexin_post(wexin_user_update_url, update_data)
       if wx_code != 0
         respond_to do |format|
-          format.turbo_stream { render turbo_stream: turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "企业微信手机号修改失败！" }) } 
+          format.html { redirect_to modify_mobiles_path, notice: "企业微信手机号修改失败！" }
         end
         return
       end
@@ -189,7 +175,7 @@ class ModifyMobilesController < ApplicationController
         wx_code = WexinUserHelper.wexin_post(wexin_user_create_url, data)
         if wx_code != 0
           respond_to do |format|
-            format.turbo_stream { render turbo_stream: turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "企业微信手机号修改失败！" }) } 
+            format.html { redirect_to modify_mobiles_path, notice: "企业微信手机号修改失败！" }
           end
           return
         end
@@ -200,7 +186,7 @@ class ModifyMobilesController < ApplicationController
       rz_code = WexinUserHelper.rz_post(update_data)
       if rz_code != "1"
         respond_to do |format|
-          format.turbo_stream { render turbo_stream: turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "一网通办手机号修改失败！" }) } 
+          format.html { redirect_to modify_mobiles_path, notice: "一网通办手机号修改失败！" }
         end
         return
       end
@@ -215,17 +201,9 @@ class ModifyMobilesController < ApplicationController
     }
     respond_to do |format|
       if @modify_mobile.update(modify_mobile)
-        format.turbo_stream do 
-          render turbo_stream: [
-            turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { notice: "修改成功！" }),
-            turbo_stream.remove(@modify_mobile)
-        ]
-        end
+        format.html { redirect_to modify_mobiles_path, notice: "修改成功！" }
       else
-        format.turbo_stream do 
-          render turbo_stream:
-            turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { warn: "修改失败！" })
-        end
+        format.html { redirect_to modify_mobiles_path, notice: "修改失败！" }
       end
     end
   end
@@ -235,12 +213,7 @@ class ModifyMobilesController < ApplicationController
     @modify_mobile.destroy
 
     respond_to do |format|
-      format.turbo_stream do 
-        render turbo_stream: [
-          turbo_stream.update("flash", partial: "modify_mobiles/flash", locals: { notice: "删除成功！" }),
-          turbo_stream.remove(@modify_mobile)
-        ]
-      end
+      format.html { redirect_to modify_mobiles_path, notice: "删除成功！" }
     end
   end
 

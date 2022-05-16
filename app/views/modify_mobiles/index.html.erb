@@ -1,7 +1,6 @@
-<%= turbo_stream_from @modify_mobile %>
 <div class="w-full">
   <div id="flash">
-    <%= render partial: "modify_mobiles/flash", locals: { } %>
+    <%= render "modify_mobiles/flash" %>
   </div>
   <div id="modify_mobiles">
     <% @modify_mobiles.each do |modify_mobile| %>

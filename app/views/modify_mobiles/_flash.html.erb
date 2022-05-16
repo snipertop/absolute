@@ -1,6 +1,5 @@
-<% if notice.present?  %>
-    <p class="text-xl py-2 text-green-500 font-medium rounded-lg inline-block"><%= notice %></p>
-<% end %>
-<% if warn.present?  %>
-    <p class="text-xl py-2 text-red-500 font-medium rounded-lg inline-block"><%= warn %></p>
+<% if notice.to_s.include? "成功"  %>
+  <p class="text-xl py-2 text-green-500 font-medium rounded-lg inline-block"><%= notice %></p>
+<% elsif notice.to_s.include? "失败" %>
+  <p class="text-xl py-2 text-red-500 font-medium rounded-lg inline-block"><%= notice %></p>
 <% end %>
