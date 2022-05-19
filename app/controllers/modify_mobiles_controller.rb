@@ -26,7 +26,8 @@ class ModifyMobilesController < ApplicationController
 
   def complete
     # cookies[:userid] = "1703018"
-    userlist = ["1703018","1703017","200044300131"]
+    # 阮 耿 刘 李 彭
+    userlist = ["1703018","1703017","200044300131","2021041","1703006"]
     if userlist.include?(cookies[:userid])
       @modify_mobiles = ModifyMobile.where({status: "1"}).order("created_at desc") # 0:未审核，1:已审核
     else
@@ -37,7 +38,7 @@ class ModifyMobilesController < ApplicationController
   # GET /modify_mobiles or /modify_mobiles.json
   def index
     # cookies[:userid] = "1703018"
-    userlist = ["1703018","1703017","200044300131"]
+    userlist = ["1703018","1703017","200044300131","2021041","1703006"]
     if userlist.include?(cookies[:userid])
       @modify_mobiles = ModifyMobile.where({status: "0"}).order("created_at desc") # 0:未审核，1:已审核
     else
