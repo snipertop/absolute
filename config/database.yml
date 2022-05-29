@@ -15,12 +15,43 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  host: 59.70.116.174
-  port: 3306
-  username: root
-  password: root
-  database: absolute_development
+  primary:
+    <<: *default
+    host: 59.70.116.174
+    port: 3306
+    username: root
+    password: root
+    database: absolute_development
+  primary_replica:
+    <<: *default
+    host: 59.70.116.174
+    port: 3306
+    username: root
+    password: root
+    database: absolute_development
+    replica: true
+  jwjk:
+    adapter: oracle_enhanced
+    encoding: utf8
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    username: zzsxy_jwjk
+    password: <%= ENV["JWJK_DATABASE_PASSWORD"] %>
+    host: 10.109.10.50
+    port: 1521
+    database: oradb
+    migrations_paths: db/zzsxy_jwjk_migrate
+    database_tasks: false
+  jwjk_replica:
+    adapter: oracle_enhanced
+    encoding: utf8
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    username: zzsxy_jwjk
+    password: <%= ENV["JWJK_DATABASE_PASSWORD"] %>
+    host: 10.109.10.50
+    port: 1521
+    database: oradb
+    replica: true
+  
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -54,9 +85,39 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: absolute_production
-  host: 59.70.112.142
-  port: 3306
-  username: root
-  password: <%= ENV["ABSOLUTE_DATABASE_PASSWORD"] %>
+  primary:
+    <<: *default
+    database: absolute_production
+    host: 59.70.112.142
+    port: 3306
+    username: root
+    password: <%= ENV["ABSOLUTE_DATABASE_PASSWORD"] %>
+  primary_replica:
+    <<: *default
+    database: absolute_production
+    host: 59.70.112.142
+    port: 3306
+    username: root
+    password: <%= ENV["ABSOLUTE_DATABASE_PASSWORD"] %>
+    replica: true
+  jwjk:
+    adapter: oracle_enhanced
+    encoding: utf8
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    username: zzsxy_jwjk
+    password: <%= ENV["JWJK_DATABASE_PASSWORD"] %>
+    host: 10.109.10.50
+    port: 1521
+    database: oradb
+    migrations_paths: db/jwjk_migrate
+    database_tasks: false
+  jwjk_replica:
+    adapter: oracle_enhanced
+    encoding: utf8
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    username: zzsxy_jwjk
+    password: <%= ENV["JWJK_DATABASE_PASSWORD"] %>
+    host: 10.109.10.50
+    port: 1521
+    database: oradb
+    replica: true

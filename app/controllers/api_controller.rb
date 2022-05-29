@@ -5,7 +5,8 @@ class ApiController < ApplicationController
     skip_before_action :verify_authenticity_token, :only => :msg
 
     def index
-        ApiHelper.jdy_account_sync
+        # ApiHelper.jdy_account_sync
+        p Post.all
     end
 
     def msg

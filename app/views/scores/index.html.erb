@@ -1,0 +1,7 @@
+<%= form_with url: search_scores_path, remote: true, method: :post do |form| %>
+    <%= form.collection_select :xn, Score.find_by_sql("select distinct xn from v_brw_score where user_xh = '20190141137' order by xn desc"), :xn, :xn %>
+    <%= form.select :xq, [["第一学期", "0"],["第二学期", "1"]] %>
+    <%= form.submit "查询" %>
+<% end %>
+<div id="search_results"></div>
+  

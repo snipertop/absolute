@@ -4,6 +4,11 @@ Rails.application.routes.draw do
       get :complete, :callback, :auth
     end
   end
+  resources :scores do 
+    collection do
+      post :search
+    end
+  end
   get 'student_user/index'  #学生基本信息同步
   get 'api/index'
   get 'api/sso'
