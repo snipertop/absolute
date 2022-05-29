@@ -12,7 +12,7 @@ gem "sprockets-rails"
 # Use mysql as the database for Active Record
 gem "mysql2", "~> 0.5"
 
-gem "pg", "~> 1.1"
+# gem "pg", "~> 1.1"
 
 gem "ruby-oci8"
 gem "activerecord-oracle_enhanced-adapter"
