@@ -4,9 +4,9 @@ Rails.application.routes.draw do
       get :complete, :callback, :auth
     end
   end
-  resources :scores do 
+  resources :scores do
     collection do
-      post :search
+      get :callback, :auth
     end
   end
   get 'student_user/index'  #学生基本信息同步

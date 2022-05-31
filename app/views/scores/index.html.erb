@@ -1,7 +1,27 @@
-<%= form_with url: search_scores_path, remote: true, method: :post do |form| %>
-    <%= form.collection_select :xn, Score.find_by_sql("select distinct xn from v_brw_score where user_xh = '20190141137' order by xn desc"), :xn, :xn %>
-    <%= form.select :xq, [["第一学期", "0"],["第二学期", "1"]] %>
-    <%= form.submit "查询" %>
-<% end %>
-<div id="search_results"></div>
+<% provide(:title, "考试成绩") %>
+<div class="flex flex-col w-full">
+    <div>
+        <%= form_with url: scores_path, method: :get, class: "flex flex-nowrap" do |form| %>
+            <%= form.select :xn, @xn_list, selected: @xn_selected %>
+            <%= form.select :xq, [["第一学期", "0"],["第二学期", "1"]], selected: @xq_selected %>
+            <%= form.submit "查询", class: "m_btn" %>
+        <% end %>
+    </div>
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-2">
+        <div class="bg-white px-4 py-2 grid grid-cols-4 text-center">
+            <dt class="font-medium text-gray-900 col-span-2"><%= @scores.first[:user_xh] unless @scores.empty? %></dt>
+            <dd class="text-gray-900 col-span-2"><%= @scores.first[:xm] unless @scores.empty? %></dd>
+        </div>
+        <% @scores.each do |score| %>
+            <dl>
+            <div class="bg-white px-4 py-2 grid grid-cols-6">
+                <dt class="font-medium text-gray-500 col-span-5"><%= score[:kcmc] %></dt>
+                <dd class="text-gray-900 col-span-1"><%= score[:kscj] %></dd>
+            </div>
+            </dl>
+        <% end %>
+    </div>
+</div>
+
+
   

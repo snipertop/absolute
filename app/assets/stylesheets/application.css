@@ -13,3 +13,26 @@
  *= require_tree .
  *= require_self
  */
+
+#xn{
+     /* width: 120px;
+     height: 40px;
+     font-size: 16px;
+     margin: 5px; */
+     width: 30%;
+     margin-top: 8px;
+     height: 46px;
+ }
+#xq{
+    width: 45%;
+    margin: 8px 5px 0px 5px;
+    height: 46px;
+    /* width: 160px;
+    height: 40px;
+    font-size: 16px;
+    margin: 5px; */
+}
+.m_btn{
+    width: 25%;
+    margin-right: 10px;
+}
