@@ -25,8 +25,8 @@ class ScoresController < ApplicationController
       end
 
     def index
-        # userid = cookies[:userid]
-        userid = "20190141137"
+        userid = cookies[:userid]
+        # userid = "20190141137"
         user_scores = Score.where({user_xh: userid}).to_a
         # 处理学年
         xn_list = Array.new()

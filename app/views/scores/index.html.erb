@@ -1,13 +1,13 @@
 <% provide(:title, "考试成绩") %>
 <div class="flex flex-col w-full">
-    <div class="w-full">
+    <div>
         <%= form_with url: scores_path, method: :get, class: "flex flex-nowrap" do |form| %>
             <%= form.select :xn, @xn_list, selected: @xn_selected %>
             <%= form.select :xq, [["第一学期", "0"],["第二学期", "1"]], selected: @xq_selected %>
             <%= form.submit "查询", class: "m_btn" %>
         <% end %>
     </div>
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-2 w-full">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-2">
         <div class="bg-white px-4 py-2 grid grid-cols-4 text-center">
             <dt class="font-medium text-gray-900 col-span-2"><%= @scores.first[:user_xh] unless @scores.empty? %></dt>
             <dd class="text-gray-900 col-span-2"><%= @scores.first[:xm] unless @scores.empty? %></dd>
